@@ -14,9 +14,7 @@ void main() async {
     await DesktopWindow.setMinWindowSize(const Size(600, 800));
   }
   runApp(ChangeNotifierProvider(
-    create: (context) => CurrentTrackModel(),
-    child: MyApp()
-  ));
+      create: (context) => CurrentTrackModel(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -72,20 +70,16 @@ class Shell extends StatelessWidget {
       body: Column(children: [
         Expanded(
           child: Row(
-            children: const [
-              SideMenu(),
-              Expanded(
+            children: [
+              if (MediaQuery.of(context).size.width > 800) const SideMenu(),
+              const Expanded(
                   child: PlaylistScreen(
                 playlist: lofihiphopPlaylist,
               ))
             ],
           ),
         ),
-        Container(
-          height: 84.0,
-          width: double.infinity,
-          color: Colors.blue,
-        )
+        CurrentTrack(),
       ]),
     );
   }
