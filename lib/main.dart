@@ -79,7 +79,7 @@ class Shell extends StatelessWidget {
             ],
           ),
         ),
-        CurrentTrack(),
+        const CurrentTrack(),
       ]),
     );
   }
