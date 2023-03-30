@@ -2,14 +2,21 @@ import 'dart:io';
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spotify_clone/data/data.dart';
+import 'package:flutter_spotify_clone/models/current_track_model.dart';
+import 'package:flutter_spotify_clone/screen/playlist_screen.dart';
 import 'package:flutter_spotify_clone/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if(!kIsWeb && (Platform.isMacOS || Platform.isLinux || Platform.isWindows)){
+  if (!kIsWeb && (Platform.isMacOS || Platform.isLinux || Platform.isWindows)) {
     await DesktopWindow.setMinWindowSize(const Size(600, 800));
   }
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => CurrentTrackModel(),
+    child: MyApp()
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -65,9 +72,12 @@ class Shell extends StatelessWidget {
       body: Column(children: [
         Expanded(
           child: Row(
-            children: [
+            children: const [
               SideMenu(),
-              // Playlist screen
+              Expanded(
+                  child: PlaylistScreen(
+                playlist: lofihiphopPlaylist,
+              ))
             ],
           ),
         ),

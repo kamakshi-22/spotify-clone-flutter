@@ -97,8 +97,10 @@ class __LibraryPLaylistsState extends State<_LibraryPLaylists> {
 
   @override
   void dispose() {
+    /* 
+    calling _scrollController?.dispose() before calling super.dispose() ensures that the ScrollController is properly disposed of before the rest of the State is cleaned up */
+    _scrollController?.dispose();
     super.dispose();
-    _scrollController!.dispose();
   }
 
   @override
